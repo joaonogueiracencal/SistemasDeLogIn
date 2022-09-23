@@ -1,5 +1,8 @@
 
 import static java.lang.Character.isDigit;
+import static java.lang.Character.isLetter;
+import static java.lang.Character.isLowerCase;
+import static java.lang.Character.isUpperCase;
 import javax.swing.JOptionPane;
 
 /*
@@ -221,13 +224,13 @@ public class FormRegisto extends javax.swing.JFrame {
         String pass = ctxPassword.getText();
         String repass = ctxRePassword.getText();
         // DONE - nome >= 2 caracteres
-        // email tem de ter 1 @ e 1 . após o @
+        // DONE - email tem de ter 1 @ e 1 . após o @
         // DONE - morada tem de ter >5 caracteres
         // DONE - telefone 9 caracteres que sejam dígitos
         // DONE - NIF 9 caracteres que sejam dígitos
         // DONE - pass e rePass têm de ser iguais
-        // pass 8 ou mais caracteres, 1 ou + minúsculas, 1 ou + algarismos,
-        // 1 ou + maiúsculas, 1 ou + caracteres especiais
+        // DONE - pass 8 ou + caracteres, 1 ou + minúsculas, 1 ou + algarismos,
+        // DONE - 1 ou + maiúsculas, 1 ou + caracteres especiais
         if (nome.equals("")||email.equals("")||morada.equals("")|| 
                 telefone.equals("")||nif.equals("")||
                 pass.equals("")||repass.equals("")){
@@ -242,21 +245,29 @@ public class FormRegisto extends javax.swing.JFrame {
                     if(nome.length()<2)
                         mensagemErro("Campo Nome deverá ter mais de dois caracteres.");
                     else
-                        if(!validaCaracteres(nome,2)){
-                            mensagemErro("Campo Nome deverá ter mais de dois caracteres.");
+                        if(!validaCaracteres(nome)){
+                            mensagemErro("Campo Nome tem caracteres inválidos.");
                     }else{
                         if (morada.length()<6){
                             mensagemErro("Morada deverá ter mais de 5 caracteres.");
                         }else{
-                            if (pass.compareTo(repass)!=0){
-                                mensagemErro("Password não é igual.");
-                            //}else{
-                            }
+                            if (!verificaPass(pass)){
+                                mensagemErro("Password não é segura o suficiente.");    
+                            }else{
+                                if (pass.compareTo(repass)!=0){
+                                    mensagemErro("Password não é igual.");
+                                }else{
+                                    if(!validaEmail(email)){
+                                        mensagemErro("Email não é valido.");                                    
+                                    }else{
+                                    }
+                                }
                         }   
                     }
                 }   
             }
         }
+    }
 
         
         
@@ -337,18 +348,77 @@ public class FormRegisto extends javax.swing.JFrame {
         return true;
     }
 
-    private boolean validaCaracteres(String palavra, int minimo) {
+    private boolean validaCaracteres(String palavra) {
         int x, t = palavra.length();
         char c;
-        if (t<minimo)
-            return false;
-        else{
-            for(x=0;x<t;x++){
-                c = palavra.charAt(x);
-                if(!isDigit(c));
-                    return false;
+        for(x=0;x<t;x++){
+            c = palavra.charAt(x);
+            if(!isLetter(c)&&(c != ' ')){
+                return false;  
             }
-        return true;
         }
+        return true;
     }
+        
+
+    private boolean validaEmail(String email) {
+        int i, ii;
+        i = email.indexOf(' ');
+        if (i != -1){
+            return false;
+        }
+        i = email.indexOf('@');
+        if (i == -1){
+            return false;
+        }else{
+            ii = email.indexOf('@',(i+1));
+            if (ii != -1){
+                return false;
+            }
+        }
+        i = email.indexOf('.',i);
+        if(i == -1){
+            return false;
+        }
+        return true;
+    }
+
+    @SuppressWarnings("empty-statement")
+    private boolean verificaPass(String pass) {
+        int i, x = 0, contMin = 0, contAlg = 0, contMaiusc = 0, contEsp = 0;
+        char c;
+        i = pass.indexOf(' ');
+        if (i != -1){
+            return false;
+        }
+        i = pass.length();
+        if (i <8){
+            return false;
+        }
+        for(x=0;x<i;x++){
+            c = pass.charAt(x);
+            if (isLowerCase(c)){
+                contMin++;
+            }else{
+                if (isUpperCase(c)){
+                    contMaiusc++;
+                }else{
+                    if (isDigit(c)){
+                        contAlg++;
+                    }else{
+                        contEsp++;
+                    }
+                }        
+            }
+        }
+        System.out.println("minusculas "+contMin);
+        System.out.println("maiusculas "+contMaiusc);
+        System.out.println("digitos "+contAlg);
+        System.out.println("especial "+contEsp);
+        if ((contMin<1)||(contMaiusc<1)||(contAlg<1)||(contEsp<1)){
+            return false;
+        }
+        return true;
+    }
+    
 }
