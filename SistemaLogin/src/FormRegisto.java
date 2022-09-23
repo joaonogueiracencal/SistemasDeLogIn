@@ -255,19 +255,18 @@ public class FormRegisto extends javax.swing.JFrame {
                                 mensagemErro("Password não é segura o suficiente.");    
                             }else{
                                 if (pass.compareTo(repass)!=0){
-                                    mensagemErro("Password não é igual.");
+                                    mensagemErro("Password tem de ser igual.");
                                 }else{
                                     if(!validaEmail(email)){
                                         mensagemErro("Email não é valido.");                                    
-                                    }else{
                                     }
                                 }
-                        }   
-                    }
-                }   
+                            }   
+                        }
+                    }   
+                }
             }
         }
-    }
 
         
         
@@ -411,11 +410,7 @@ public class FormRegisto extends javax.swing.JFrame {
                 }        
             }
         }
-        System.out.println("minusculas "+contMin);
-        System.out.println("maiusculas "+contMaiusc);
-        System.out.println("digitos "+contAlg);
-        System.out.println("especial "+contEsp);
-        if ((contMin<1)||(contMaiusc<1)||(contAlg<1)||(contEsp<1)){
+        if ( (contMin<1) || (contMaiusc<1) || (contAlg<1) || (contEsp<1) ){
             return false;
         }
         return true;
