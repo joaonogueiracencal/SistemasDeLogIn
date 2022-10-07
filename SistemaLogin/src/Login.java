@@ -56,6 +56,11 @@ public class Login extends javax.swing.JFrame {
         botaoIniciarSessao.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         botaoIniciarSessao.setForeground(new java.awt.Color(255, 255, 255));
         botaoIniciarSessao.setText("Iniciar Sessão");
+        botaoIniciarSessao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoIniciarSessaoActionPerformed(evt);
+            }
+        });
 
         ctxPassword.setText("jPasswordField2");
 
@@ -124,10 +129,25 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_ctxLoginActionPerformed
 
     private void botaoRegistarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRegistarActionPerformed
+       
+        
         FormRegisto fr = new FormRegisto();
         this.setVisible(false);
         fr.setVisible(true);
     }//GEN-LAST:event_botaoRegistarActionPerformed
+
+    private void botaoIniciarSessaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoIniciarSessaoActionPerformed
+        // Validação atraves da recolha e comparação de password e login
+        // 1º - verificar se existe ficheiro "login.txt"
+        // 2º - verificar se a passwrod corresponde à pass que está no ficheiro, se sim, segue para a JFrame Form MenuOpcoes
+        
+        // se login e password correstos fazer isto que se segue
+        MenuOpcoes mo = new MenuOpcoes();
+        this.setVisible(false);
+        mo.setVisible(true);
+        
+        // senão, lança um alert de dados de login incorretos
+    }//GEN-LAST:event_botaoIniciarSessaoActionPerformed
 
 
     public static void main(String args[]) {

@@ -1,4 +1,8 @@
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import static java.lang.Character.isDigit;
 import static java.lang.Character.isLetter;
 import static java.lang.Character.isLowerCase;
@@ -15,7 +19,6 @@ import javax.swing.JOptionPane;
  * @author jnogueira
  */
 public class FormRegisto extends javax.swing.JFrame {
-
     /**
      * Creates new form FormRegisto
      */
@@ -46,9 +49,11 @@ public class FormRegisto extends javax.swing.JFrame {
         ctxEmail = new javax.swing.JTextField();
         ctxNome = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        btxValidarDados = new javax.swing.JButton();
-        ctxTelefone = new javax.swing.JTextField();
+        btxRegistarUtilizador = new javax.swing.JButton();
+        ctxLoginUser = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        ctxLogin = new javax.swing.JLabel();
+        ctxTelefone = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Formulário de Registo de Utilizadores");
@@ -98,19 +103,29 @@ public class FormRegisto extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI Historic", 1, 18)); // NOI18N
         jLabel7.setText("Registo de Utilizador");
 
-        btxValidarDados.setBackground(new java.awt.Color(102, 255, 102));
-        btxValidarDados.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btxValidarDados.setText("Validar Dados");
-        btxValidarDados.addActionListener(new java.awt.event.ActionListener() {
+        btxRegistarUtilizador.setBackground(new java.awt.Color(102, 255, 102));
+        btxRegistarUtilizador.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btxRegistarUtilizador.setText("Validar Dados");
+        btxRegistarUtilizador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btxValidarDadosActionPerformed(evt);
+                btxRegistarUtilizadorActionPerformed(evt);
             }
         });
 
-        ctxTelefone.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ctxLoginUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ctxLoginUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ctxLoginUserActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setText("Telefone");
+
+        ctxLogin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        ctxLogin.setText("Login");
+
+        ctxTelefone.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,26 +134,29 @@ public class FormRegisto extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ctxTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ctxNif, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel8)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ctxTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ctxNif, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel6)
+                                        .addComponent(botaoSair))
+                                    .addGap(18, 18, 18))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addComponent(jLabel5)
-                                    .addComponent(botaoSair))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(ctxPassword)
-                                    .addComponent(ctxRePassword)
-                                    .addComponent(btxValidarDados, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(ctxPassword)
+                                .addComponent(ctxRePassword)
+                                .addComponent(btxRegistarUtilizador, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
@@ -152,7 +170,11 @@ public class FormRegisto extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(jLabel3)
                                     .addGap(87, 87, 87)
-                                    .addComponent(ctxMorada, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(ctxMorada, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(ctxLogin)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ctxLoginUser, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(88, 88, 88)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -183,22 +205,23 @@ public class FormRegisto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(ctxNif, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(32, 32, 32))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(ctxPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ctxLoginUser, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                    .addComponent(ctxLogin))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ctxPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(ctxRePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botaoSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btxValidarDados))
-                .addGap(44, 44, 44))
+                    .addComponent(btxRegistarUtilizador))
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -215,7 +238,7 @@ public class FormRegisto extends javax.swing.JFrame {
     }
     
     
-    private void btxValidarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btxValidarDadosActionPerformed
+    private void btxRegistarUtilizadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btxRegistarUtilizadorActionPerformed
         String nome = ctxNome.getText();
         String email = ctxEmail.getText();
         String morada = ctxMorada.getText();
@@ -223,6 +246,7 @@ public class FormRegisto extends javax.swing.JFrame {
         String nif = ctxNif.getText();
         String pass = ctxPassword.getText();
         String repass = ctxRePassword.getText();
+        String login = ctxLoginUser.getText();
         // DONE - nome >= 2 caracteres
         // DONE - email tem de ter 1 @ e 1 . após o @
         // DONE - morada tem de ter >5 caracteres
@@ -231,16 +255,17 @@ public class FormRegisto extends javax.swing.JFrame {
         // DONE - pass e rePass têm de ser iguais
         // DONE - pass 8 ou + caracteres, 1 ou + minúsculas, 1 ou + algarismos,
         // DONE - 1 ou + maiúsculas, 1 ou + caracteres especiais
+        
         if (nome.equals("")||email.equals("")||morada.equals("")|| 
                 telefone.equals("")||nif.equals("")||
                 pass.equals("")||repass.equals("")){
             mensagemErro("Preencha todos os campos!");
         }else{
             if(!validaCampoNumerico(telefone)){
-                mensagemErro("O telefone Deverá ter 9 digitos.");
+                mensagemErro("O telefone deverá ter 9 digitos.");
             }else{
                 if(!validaCampoNumerico(nif)){
-                    mensagemErro("O NIF Deverá ter 9 digitos.");
+                    mensagemErro("O NIF deverá ter 9 digitos.");
                 }else{
                     if(nome.length()<2)
                         mensagemErro("Campo Nome deverá ter mais de dois caracteres.");
@@ -259,6 +284,12 @@ public class FormRegisto extends javax.swing.JFrame {
                                 }else{
                                     if(!validaEmail(email)){
                                         mensagemErro("Email não é valido.");                                    
+                                    }else{
+                                        registaUtilizador(nome,email,morada,telefone,nif,pass,login);
+                                        Login lf = new Login();
+                                        this.setVisible(false);
+                                        lf.setVisible(true);
+                                        }
                                     }
                                 }
                             }   
@@ -266,14 +297,18 @@ public class FormRegisto extends javax.swing.JFrame {
                     }   
                 }
             }
-        }
+        
 
         
         
         
         
         
-    }//GEN-LAST:event_btxValidarDadosActionPerformed
+    }//GEN-LAST:event_btxRegistarUtilizadorActionPerformed
+
+    private void ctxLoginUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctxLoginUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ctxLoginUserActionPerformed
 
     /**
      * @param args the command line arguments
@@ -312,8 +347,10 @@ public class FormRegisto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoSair;
-    private javax.swing.JButton btxValidarDados;
+    private javax.swing.JButton btxRegistarUtilizador;
     private javax.swing.JTextField ctxEmail;
+    private javax.swing.JLabel ctxLogin;
+    private javax.swing.JTextField ctxLoginUser;
     private javax.swing.JTextField ctxMorada;
     private javax.swing.JTextField ctxNif;
     private javax.swing.JTextField ctxNome;
@@ -394,7 +431,7 @@ public class FormRegisto extends javax.swing.JFrame {
         if (i <8){
             return false;
         }
-        for(x=0;x<i;x++){
+        for(x = 0 ;x < i ;x++){
             c = pass.charAt(x);
             if (isLowerCase(c)){
                 contMin++;
@@ -410,10 +447,32 @@ public class FormRegisto extends javax.swing.JFrame {
                 }        
             }
         }
-        if ( (contMin<1) || (contMaiusc<1) || (contAlg<1) || (contEsp<1) ){
+        if ((contMin<1) || (contMaiusc<1) || (contAlg<1) || (contEsp<1)){
             return false;
         }
         return true;
     }
-    
+
+    private void registaUtilizador(String nome, String email, String morada, String telefone, String nif, String pass, String login) {
+        File ficheiro = new File("C:\\Users\\jnogueira\\Desktop\\0816 - Java\\SistemasDeLogIn\\SistemaLogin\\UtilizadoresRegistados", login + ".txt");
+        if(!ficheiro.exists()){
+            try {
+                ficheiro.createNewFile();
+                FileWriter fw = new FileWriter(ficheiro,true);
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write(pass);bw.newLine();
+                bw.write(login);bw.newLine();
+                bw.write(nome);bw.newLine();
+                bw.write(email);bw.newLine();
+                bw.write(morada);bw.newLine();
+                bw.write(nif);bw.newLine();
+                bw.write(telefone);bw.newLine();
+                bw.newLine();
+                bw.close();
+                fw.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }    
 }
