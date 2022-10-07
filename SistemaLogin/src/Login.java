@@ -1,3 +1,12 @@
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Login extends javax.swing.JFrame {
 
 
@@ -129,7 +138,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_ctxLoginActionPerformed
 
     private void botaoRegistarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRegistarActionPerformed
-       
+
         
         FormRegisto fr = new FormRegisto();
         this.setVisible(false);
@@ -140,11 +149,32 @@ public class Login extends javax.swing.JFrame {
         // Validação atraves da recolha e comparação de password e login
         // 1º - verificar se existe ficheiro "login.txt"
         // 2º - verificar se a passwrod corresponde à pass que está no ficheiro, se sim, segue para a JFrame Form MenuOpcoes
-        
+        String login = ctxLogin.getText()+".txt";
+        String pass = ctxPassword.getText();
+        login = "C:\\Users\\jnogueira\\Desktop\\0816 - Java\\SistemasDeLogIn\\SistemaLogin\\UtilizadoresRegistados\\"+login;
+        File verificarLogin = new File(login);
+        boolean existe = verificarLogin.exists();
+        if (existe){
+            try {
+                FileReader fr = new FileReader(verificarLogin);
+                BufferedReader br = new BufferedReader(fr);
+                String verificaPass = br.readLine();
+                if (verificaPass.equals(pass)){
+                    MenuOpcoes mo = new MenuOpcoes();
+                    this.setVisible(false);
+                    mo.setVisible(true);
+                } else {
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         // se login e password correstos fazer isto que se segue
-        MenuOpcoes mo = new MenuOpcoes();
-        this.setVisible(false);
-        mo.setVisible(true);
+        //MenuOpcoes mo = new MenuOpcoes();
+        //this.setVisible(false);
+        //mo.setVisible(true);
         
         // senão, lança um alert de dados de login incorretos
     }//GEN-LAST:event_botaoIniciarSessaoActionPerformed
