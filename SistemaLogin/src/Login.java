@@ -137,7 +137,6 @@ public class Login extends javax.swing.JFrame {
 
     private void botaoRegistarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRegistarActionPerformed
 
-        
         FormRegisto fr = new FormRegisto();
         this.setVisible(false);
         fr.setVisible(true);
@@ -149,7 +148,7 @@ public class Login extends javax.swing.JFrame {
         // 2º - verificar se a passwrod corresponde à pass que está no ficheiro, se sim, segue para a JFrame Form MenuOpcoes
         login = ctxLogin.getText()+".txt";
         String pass = ctxPassword.getText();
-        String loginCaminho = "C:\\Users\\jnogueira\\Desktop\\0816 - Java\\SistemasDeLogIn\\SistemaLogin\\UtilizadoresRegistados\\"+login;
+        String loginCaminho = "UtilizadoresRegistados\\"+login;
         File verificarLogin = new File(loginCaminho);
         boolean existe = verificarLogin.exists();
         if (existe){
@@ -161,9 +160,11 @@ public class Login extends javax.swing.JFrame {
                     MenuOpcoes mo = new MenuOpcoes();
                     this.setVisible(false);
                     mo.setVisible(true);
+                    br.close();
+                    fr.close();
+                }else{
+                    FormRegisto.mensagemErro("Dados inválidos");
                 }
-                br.close();
-                fr.close();
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {

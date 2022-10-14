@@ -44,7 +44,7 @@ public class MenuOpcoes extends javax.swing.JFrame {
         MostrarUtilizadoresRegistados = new javax.swing.JButton();
         EliminarUtilizador = new javax.swing.JButton();
         VisualizarDadosUtilizadores = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        EditarDadosUtilizador = new javax.swing.JButton();
         TerminarSessao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -73,11 +73,11 @@ public class MenuOpcoes extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton4.setText("Editar Dados Utilizador");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        EditarDadosUtilizador.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        EditarDadosUtilizador.setText("Editar Dados Utilizador");
+        EditarDadosUtilizador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                EditarDadosUtilizadorActionPerformed(evt);
             }
         });
 
@@ -100,7 +100,7 @@ public class MenuOpcoes extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(EliminarUtilizador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(VisualizarDadosUtilizadores, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)))
+                        .addComponent(EditarDadosUtilizador, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)))
                 .addContainerGap(191, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -117,7 +117,7 @@ public class MenuOpcoes extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(VisualizarDadosUtilizadores, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(EditarDadosUtilizador, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
                 .addComponent(TerminarSessao, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
@@ -163,7 +163,7 @@ public class MenuOpcoes extends javax.swing.JFrame {
 
     private void VisualizarDadosUtilizadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisualizarDadosUtilizadoresActionPerformed
         File ficheiro = new File("UtilizadoresRegistados\\", login);
-        String [] items = {"Nome: ","Email: ", "Morada: ","Telefone: ", "NIF: ", "Login: ", "Password: "} ; 
+        String [] items = {"Nome: ","Email: ", "Morada: ","Telefone: ", "NIF: ", "Login: ", "Password: "}; 
         try{
             FileReader fr = new FileReader(ficheiro);
             BufferedReader br = new BufferedReader(fr);
@@ -183,9 +183,11 @@ public class MenuOpcoes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_VisualizarDadosUtilizadoresActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void EditarDadosUtilizadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarDadosUtilizadorActionPerformed
+        EditarDados ed = new EditarDados();
+        this.setVisible(false);
+        ed.setVisible(true); 
+    }//GEN-LAST:event_EditarDadosUtilizadorActionPerformed
 
     private void TerminarSessaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TerminarSessaoActionPerformed
         Login lf = new Login();
@@ -229,10 +231,10 @@ public class MenuOpcoes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton EditarDadosUtilizador;
     private javax.swing.JButton EliminarUtilizador;
     private javax.swing.JButton MostrarUtilizadoresRegistados;
     private javax.swing.JButton TerminarSessao;
     private javax.swing.JButton VisualizarDadosUtilizadores;
-    private javax.swing.JButton jButton4;
     // End of variables declaration//GEN-END:variables
 }
