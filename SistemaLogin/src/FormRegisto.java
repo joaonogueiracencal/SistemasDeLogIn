@@ -87,10 +87,8 @@ public class FormRegisto extends javax.swing.JFrame {
         jLabel6.setText("Repita Password");
 
         ctxPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        ctxPassword.setText("jPasswordField1");
 
         ctxRePassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        ctxRePassword.setText("jPasswordField1");
 
         ctxNif.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 

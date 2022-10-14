@@ -1,5 +1,14 @@
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -15,8 +24,12 @@ public class MenuOpcoes extends javax.swing.JFrame {
     /**
      * Creates new form MenuOpcoes
      */
+    public static String login = Login.login;
+    Login log;
     public MenuOpcoes() {
         initComponents();
+        if (log == null)
+            log = new Login();
     }
 
     /**
@@ -29,8 +42,8 @@ public class MenuOpcoes extends javax.swing.JFrame {
     private void initComponents() {
 
         MostrarUtilizadoresRegistados = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        EliminarUtilizador = new javax.swing.JButton();
+        VisualizarDadosUtilizadores = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         TerminarSessao = new javax.swing.JButton();
 
@@ -44,19 +57,19 @@ public class MenuOpcoes extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setText("Eliminar Utilizadores");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        EliminarUtilizador.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        EliminarUtilizador.setText("Eliminar Utilizador");
+        EliminarUtilizador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                EliminarUtilizadorActionPerformed(evt);
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton3.setText("Visualizar Dados Utilizadores");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        VisualizarDadosUtilizadores.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        VisualizarDadosUtilizadores.setText("Visualizar Dados Utilizadores");
+        VisualizarDadosUtilizadores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                VisualizarDadosUtilizadoresActionPerformed(evt);
             }
         });
 
@@ -85,8 +98,8 @@ public class MenuOpcoes extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(MostrarUtilizadoresRegistados)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                        .addComponent(EliminarUtilizador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(VisualizarDadosUtilizadores, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
                         .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)))
                 .addContainerGap(191, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -100,9 +113,9 @@ public class MenuOpcoes extends javax.swing.JFrame {
                 .addGap(56, 56, 56)
                 .addComponent(MostrarUtilizadoresRegistados, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(EliminarUtilizador, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(VisualizarDadosUtilizadores, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
@@ -122,13 +135,53 @@ public class MenuOpcoes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_MostrarUtilizadoresRegistadosActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void EliminarUtilizadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarUtilizadorActionPerformed
+        File ficheiro = new File("UtilizadoresRegistados\\", login);
+        File ficheiroEliminado = new File("UtilizadoresEliminados\\", login);
+        try {
+            ficheiroEliminado.createNewFile();
+            FileWriter fwEliminado = new FileWriter(ficheiroEliminado,true);
+            BufferedWriter bwEliminado = new BufferedWriter(fwEliminado);
+            FileReader fr = new FileReader(ficheiro);
+            BufferedReader br = new BufferedReader(fr);
+            while(br.ready()){
+                bwEliminado.write(br.readLine());
+                bwEliminado.newLine();
+        }
+        br.close();
+        fr.close();
+        bwEliminado.close();
+        fwEliminado.close();
+        } catch (IOException ex) {
+            Logger.getLogger(MenuOpcoes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JOptionPane.showMessageDialog(null, "Utilizador eliminado.", "Informação", JOptionPane.ERROR_MESSAGE);
+        Login lf = new Login();
+        this.setVisible(false);
+        lf.setVisible(true); 
+    }//GEN-LAST:event_EliminarUtilizadorActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void VisualizarDadosUtilizadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisualizarDadosUtilizadoresActionPerformed
+        File ficheiro = new File("UtilizadoresRegistados\\", login);
+        String [] items = {"Nome: ","Email: ", "Morada: ","Telefone: ", "NIF: ", "Login: ", "Password: "} ; 
+        try{
+            FileReader fr = new FileReader(ficheiro);
+            BufferedReader br = new BufferedReader(fr);
+            int i = 0;
+            while(br.ready()){
+                System.out.print(items[i]);
+                String linha = br.readLine();
+                System.out.println(linha);
+                i += 1;
+            }
+            br.close();
+            fr.close();
+        }catch (FileNotFoundException ex){
+                ex.printStackTrace();
+        }catch (IOException ioe){
+                ioe.printStackTrace();
+        }
+    }//GEN-LAST:event_VisualizarDadosUtilizadoresActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
@@ -176,10 +229,10 @@ public class MenuOpcoes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton EliminarUtilizador;
     private javax.swing.JButton MostrarUtilizadoresRegistados;
     private javax.swing.JButton TerminarSessao;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton VisualizarDadosUtilizadores;
     private javax.swing.JButton jButton4;
     // End of variables declaration//GEN-END:variables
 }

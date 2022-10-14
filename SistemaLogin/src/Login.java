@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Login extends javax.swing.JFrame {
-
+    public static String login;
 
     public Login() {
         initComponents();
@@ -70,8 +70,6 @@ public class Login extends javax.swing.JFrame {
                 botaoIniciarSessaoActionPerformed(evt);
             }
         });
-
-        ctxPassword.setText("jPasswordField2");
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/loginLogo.png"))); // NOI18N
 
@@ -149,10 +147,10 @@ public class Login extends javax.swing.JFrame {
         // Validação atraves da recolha e comparação de password e login
         // 1º - verificar se existe ficheiro "login.txt"
         // 2º - verificar se a passwrod corresponde à pass que está no ficheiro, se sim, segue para a JFrame Form MenuOpcoes
-        String login = ctxLogin.getText()+".txt";
+        login = ctxLogin.getText()+".txt";
         String pass = ctxPassword.getText();
-        login = "C:\\Users\\jnogueira\\Desktop\\0816 - Java\\SistemasDeLogIn\\SistemaLogin\\UtilizadoresRegistados\\"+login;
-        File verificarLogin = new File(login);
+        String loginCaminho = "C:\\Users\\jnogueira\\Desktop\\0816 - Java\\SistemasDeLogIn\\SistemaLogin\\UtilizadoresRegistados\\"+login;
+        File verificarLogin = new File(loginCaminho);
         boolean existe = verificarLogin.exists();
         if (existe){
             try {
@@ -164,6 +162,8 @@ public class Login extends javax.swing.JFrame {
                     this.setVisible(false);
                     mo.setVisible(true);
                 }
+                br.close();
+                fr.close();
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
