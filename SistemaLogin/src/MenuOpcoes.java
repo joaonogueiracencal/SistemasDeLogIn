@@ -1,3 +1,6 @@
+
+import java.io.File;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -25,19 +28,19 @@ public class MenuOpcoes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        MostrarUtilizadoresRegistados = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        TerminarSessao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setText("Mostrar Utilizadores Registados");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        MostrarUtilizadoresRegistados.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        MostrarUtilizadoresRegistados.setText("Mostrar Utilizadores Registados");
+        MostrarUtilizadoresRegistados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                MostrarUtilizadoresRegistadosActionPerformed(evt);
             }
         });
 
@@ -65,8 +68,13 @@ public class MenuOpcoes extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton5.setText("Terminar sessão");
+        TerminarSessao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TerminarSessao.setText("Terminar sessão");
+        TerminarSessao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TerminarSessaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,7 +83,7 @@ public class MenuOpcoes extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(205, 205, 205)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                    .addComponent(MostrarUtilizadoresRegistados)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
@@ -83,14 +91,14 @@ public class MenuOpcoes extends javax.swing.JFrame {
                 .addContainerGap(191, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton5)
+                .addComponent(TerminarSessao)
                 .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(56, 56, 56)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(MostrarUtilizadoresRegistados, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -98,16 +106,21 @@ public class MenuOpcoes extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TerminarSessao, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void MostrarUtilizadoresRegistadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarUtilizadoresRegistadosActionPerformed
+        File ficheiro = new File("UtilizadoresRegistados\\");
+        File [] listaUtilizadores = ficheiro.listFiles();        
+        System.out.println(">>> Utilizadores Registados <<<");
+        for(int i=0;i<listaUtilizadores.length;i++){
+            System.out.println(listaUtilizadores[i].getName().replace(".txt", ""));
+        }
+    }//GEN-LAST:event_MostrarUtilizadoresRegistadosActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -120,6 +133,12 @@ public class MenuOpcoes extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void TerminarSessaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TerminarSessaoActionPerformed
+        Login lf = new Login();
+        this.setVisible(false);
+        lf.setVisible(true);        
+    }//GEN-LAST:event_TerminarSessaoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,10 +176,10 @@ public class MenuOpcoes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton MostrarUtilizadoresRegistados;
+    private javax.swing.JButton TerminarSessao;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     // End of variables declaration//GEN-END:variables
 }

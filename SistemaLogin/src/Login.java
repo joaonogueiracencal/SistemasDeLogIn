@@ -163,20 +163,15 @@ public class Login extends javax.swing.JFrame {
                     MenuOpcoes mo = new MenuOpcoes();
                     this.setVisible(false);
                     mo.setVisible(true);
-                } else {
                 }
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }else{
+            FormRegisto.mensagemErro("Dados inválidos");
         }
-        // se login e password correstos fazer isto que se segue
-        //MenuOpcoes mo = new MenuOpcoes();
-        //this.setVisible(false);
-        //mo.setVisible(true);
-        
-        // senão, lança um alert de dados de login incorretos
     }//GEN-LAST:event_botaoIniciarSessaoActionPerformed
 
 
