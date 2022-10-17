@@ -2,6 +2,7 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,14 +10,13 @@ import static java.lang.Character.isDigit;
 import static java.lang.Character.isLetter;
 import static java.lang.Character.isLowerCase;
 import static java.lang.Character.isUpperCase;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 
 /**
  *
@@ -26,8 +26,38 @@ public class EditarDados extends javax.swing.JFrame {
     /**
      * Creates new form FormRegisto
      */
+
+    
     public EditarDados() {
         initComponents();
+        String[] dados = new String[7];
+    
+        File dadosUtilizador = new File("UtilizadoresRegistados", Login.login);
+        int i = 0;    
+
+        try {
+            FileReader fr = new FileReader(dadosUtilizador);
+            BufferedReader br = new BufferedReader(fr);
+            while(br.ready()){
+                dados[i] = br.readLine();
+                i++;
+                if (i==7)
+                    break;
+            }
+            br.close();
+            fr.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(EditarDados.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(EditarDados.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ctxNome.setText(dados[2]);
+        ctxEmail.setText(dados[3]);
+        ctxMorada.setText(dados[4]);
+        ctxTelefone.setText(dados[6]);
+        ctxNif.setText(dados[5]);
+        ctxLoginUser.setText(dados[1]);
+        ctxPassword.setText(dados[0]);
     }
 
     /**
@@ -124,7 +154,9 @@ public class EditarDados extends javax.swing.JFrame {
             }
         });
 
+        ctxLoginUser.setEditable(false);
         ctxLoginUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ctxLoginUser.setEnabled(false);
         ctxLoginUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ctxLoginUserActionPerformed(evt);
@@ -259,14 +291,6 @@ public class EditarDados extends javax.swing.JFrame {
         String pass = ctxPassword.getText();
         String repass = ctxRePassword.getText();
         String login = ctxLoginUser.getText();
-        // DONE - nome >= 2 caracteres
-        // DONE - email tem de ter 1 @ e 1 . após o @
-        // DONE - morada tem de ter >5 caracteres
-        // DONE - telefone 9 caracteres que sejam dígitos
-        // DONE - NIF 9 caracteres que sejam dígitos
-        // DONE - pass e rePass têm de ser iguais
-        // DONE - pass 8 ou + caracteres, 1 ou + minúsculas, 1 ou + algarismos,
-        // DONE - 1 ou + maiúsculas, 1 ou + caracteres especiais
         
         if (nome.equals("")||email.equals("")||morada.equals("")|| 
                 telefone.equals("")||nif.equals("")||
@@ -298,41 +322,28 @@ public class EditarDados extends javax.swing.JFrame {
                                         mensagemErro("Email não é valido.");                                    
                                     }else{
                                         registaUtilizador(nome,email,morada,telefone,nif,pass,login);
-                                        Login lf = new Login();
-                                        this.setVisible(false);
-                                        lf.setVisible(true);
-                                        }
+                                        MenuOpcoes menuOp = new MenuOpcoes();
+                                        this.dispose(); // fecha a janela atual
+                                        menuOp.setVisible(true);
                                     }
                                 }
-                            }   
-                        }
-                    }   
-                }
+                            }
+                        }   
+                    }
+                }   
             }
-        
-
-        
-        
-        
-        
-        
+        }
+           
     }//GEN-LAST:event_btxRegistarUtilizadorActionPerformed
 
     private void ctxLoginUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctxLoginUserActionPerformed
-        // TODO add your handling code here:
+        JTextField textField = new JTextField();
+        textField.setEnabled(false);
+        textField.setEditable(false);         
     }//GEN-LAST:event_ctxLoginUserActionPerformed
 
     private void ctxNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctxNomeActionPerformed
-        File ficheiro = new File("UtilizadoresRegistados\\", MenuOpcoes.login);
-        try {
-            FileWriter fw = new FileWriter(ficheiro,true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            FileReader fr = new FileReader(ficheiro);
-            BufferedReader br = new BufferedReader(fr);            
-            JOptionPane.showMessageDialog(null, "Nome teste");
-        } catch (IOException ex) {
-            Logger.getLogger(EditarDados.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
         
     }//GEN-LAST:event_ctxNomeActionPerformed
 
@@ -484,12 +495,30 @@ public class EditarDados extends javax.swing.JFrame {
     }
 
     private void registaUtilizador(String nome, String email, String morada, String telefone, String nif, String pass, String login) {
-        File ficheiro = new File("C:\\Users\\jnogueira\\Desktop\\0816 - Java\\SistemasDeLogIn\\SistemaLogin\\UtilizadoresRegistados", login + ".txt");
-        if(!ficheiro.exists()){
+        File ficheiro = new File("UtilizadoresRegistados", login + ".txt");
+        File ficheiroTemporario = new File("UtilizadoresRegistados\\temp.txt");
             try {
+                FileWriter fwtemp = new FileWriter(ficheiroTemporario,true);
+                BufferedWriter bwtemp = new BufferedWriter(fwtemp);
+                ficheiroTemporario.createNewFile();
+                FileReader fr = new FileReader(ficheiro); 
+                BufferedReader br = new BufferedReader(fr); 
+                LocalDateTime data2 = java.time.LocalDateTime.now();
+                bwtemp.write("INFORMAÇÕES ANTIGAS - alterado em "+ data2+" para as informações acima.");
+                bwtemp.newLine();bwtemp.write("");bwtemp.newLine();
+                
+                while (br.ready()){
+                    bwtemp.write(br.readLine());
+                    bwtemp.newLine();
+                }
+
+                br.close();
+                fr.close();
+                ficheiro.delete();
                 ficheiro.createNewFile();
                 FileWriter fw = new FileWriter(ficheiro,true);
                 BufferedWriter bw = new BufferedWriter(fw);
+                
                 bw.write(pass);bw.newLine();
                 bw.write(login);bw.newLine();
                 bw.write(nome);bw.newLine();
@@ -498,11 +527,25 @@ public class EditarDados extends javax.swing.JFrame {
                 bw.write(nif);bw.newLine();
                 bw.write(telefone);bw.newLine();
                 bw.newLine();
+                bw.newLine();
+                bwtemp.close();
+                fwtemp.close(); 
+              
+                FileReader frtemp = new FileReader(ficheiroTemporario); 
+                BufferedReader brtemp = new BufferedReader(frtemp); 
+           
+                while (brtemp.ready()){
+                    bw.write(brtemp.readLine());
+                    bw.newLine();
+                }
+                brtemp.close();
+                frtemp.close();
                 bw.close();
                 fw.close();
+                ficheiroTemporario.delete();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-        }
+        
     }    
 }
