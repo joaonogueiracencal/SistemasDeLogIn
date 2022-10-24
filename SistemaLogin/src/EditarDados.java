@@ -10,6 +10,11 @@ import static java.lang.Character.isDigit;
 import static java.lang.Character.isLetter;
 import static java.lang.Character.isLowerCase;
 import static java.lang.Character.isUpperCase;
+import static java.lang.Integer.parseInt;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.logging.Level;
@@ -28,8 +33,24 @@ public class EditarDados extends javax.swing.JFrame {
      */
 
     
-    public EditarDados() {
+    public EditarDados() throws SQLException {
         initComponents();
+        String sql = "SELECT * FROM utilizador WHERE login = '"+Login.login+"'";
+        Connection conn = LigaBD.ligacao();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            ctxNome.setText(rs.getString(2));
+            ctxEmail.setText(rs.getString(3));
+            ctxMorada.setText(rs.getString(4));
+            ctxTelefone.setText(rs.getString(5));
+            ctxNif.setText(rs.getString(6));
+            ctxLoginUser.setText(rs.getString(7));
+            ctxPassword.setText(rs.getString(8));
+        }
+        
+
+        /*
         String[] dados = new String[7];
     
         File dadosUtilizador = new File("UtilizadoresRegistados", Login.login);
@@ -58,6 +79,7 @@ public class EditarDados extends javax.swing.JFrame {
         ctxNif.setText(dados[5]);
         ctxLoginUser.setText(dados[1]);
         ctxPassword.setText(dados[0]);
+        */
     }
 
     /**
@@ -321,10 +343,17 @@ public class EditarDados extends javax.swing.JFrame {
                                     if(!validaEmail(email)){
                                         mensagemErro("Email não é valido.");                                    
                                     }else{
-                                        registaUtilizador(nome,email,morada,telefone,nif,pass,login);
-                                        MenuOpcoes menuOp = new MenuOpcoes();
-                                        this.dispose(); // fecha a janela atual
-                                        menuOp.setVisible(true);
+                                        //registaUtilizador(nome,email,morada,telefone,nif,pass,login);
+                                        LigaBD.ligacao();
+                                        try {
+                                            LigaBD.atualizaDados(nome,email,morada,pass,Integer.parseInt(telefone),Integer.parseInt(nif));
+                                            MenuOpcoes menuOp = new MenuOpcoes();
+                                            this.dispose(); // fecha a janela atual
+                                            menuOp.setVisible(true);
+                                        } catch (SQLException ex) {
+                                            Logger.getLogger(EditarDados.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+
                                     }
                                 }
                             }
@@ -503,8 +532,8 @@ public class EditarDados extends javax.swing.JFrame {
                 ficheiroTemporario.createNewFile();
                 FileReader fr = new FileReader(ficheiro); 
                 BufferedReader br = new BufferedReader(fr); 
-                LocalDateTime data2 = java.time.LocalDateTime.now();
-                bwtemp.write("INFORMAÇÕES ANTIGAS - alterado em "+ data2+" para as informações acima.");
+                LocalDateTime data = java.time.LocalDateTime.now();
+                bwtemp.write("INFORMAÇÕES ANTIGAS - alterado em "+ data+" para as informações acima.");
                 bwtemp.newLine();bwtemp.write("");bwtemp.newLine();
                 
                 while (br.ready()){

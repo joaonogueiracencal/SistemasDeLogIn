@@ -6,6 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -136,6 +139,7 @@ public class MenuOpcoes extends javax.swing.JFrame {
     }//GEN-LAST:event_MostrarUtilizadoresRegistadosActionPerformed
 
     private void EliminarUtilizadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarUtilizadorActionPerformed
+        /*
         File ficheiro = new File("UtilizadoresRegistados\\", login);
         File ficheiroEliminado = new File("UtilizadoresEliminados\\", login);
         try {
@@ -156,9 +160,20 @@ public class MenuOpcoes extends javax.swing.JFrame {
             Logger.getLogger(MenuOpcoes.class.getName()).log(Level.SEVERE, null, ex);
         }
         JOptionPane.showMessageDialog(null, "Utilizador eliminado.", "Informação", JOptionPane.ERROR_MESSAGE);
-        Login lf = new Login();
-        this.setVisible(false);
-        lf.setVisible(true); 
+        */
+        String del = "DELETE FROM utilizador WHERE login='"+Login.login+"'";
+        LigaBD.ligacao();
+        Connection conn = LigaBD.ligacao();
+        try {
+            PreparedStatement st = conn.prepareStatement(del);
+            st.executeUpdate();
+            Login lf = new Login();
+            this.setVisible(false);
+            lf.setVisible(true); 
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuOpcoes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_EliminarUtilizadorActionPerformed
 
     private void VisualizarDadosUtilizadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisualizarDadosUtilizadoresActionPerformed
@@ -184,9 +199,15 @@ public class MenuOpcoes extends javax.swing.JFrame {
     }//GEN-LAST:event_VisualizarDadosUtilizadoresActionPerformed
 
     private void EditarDadosUtilizadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarDadosUtilizadorActionPerformed
-        EditarDados ed = new EditarDados();
-        this.setVisible(false);
-        ed.setVisible(true); 
+        EditarDados ed;
+        try {
+            ed = new EditarDados();
+            this.setVisible(false);
+            ed.setVisible(true); 
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuOpcoes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_EditarDadosUtilizadorActionPerformed
 
     private void TerminarSessaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TerminarSessaoActionPerformed

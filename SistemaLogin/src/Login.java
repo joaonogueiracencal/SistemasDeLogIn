@@ -146,9 +146,9 @@ public class Login extends javax.swing.JFrame {
         // Validação atraves da recolha e comparação de password e login
         // 1º - verificar se existe ficheiro "login.txt"
         // 2º - verificar se a passwrod corresponde à pass que está no ficheiro, se sim, segue para a JFrame Form MenuOpcoes
-        login = ctxLogin.getText()+".txt";
+        login = ctxLogin.getText();
         String pass = ctxPassword.getText();
-        String loginCaminho = "UtilizadoresRegistados\\"+login;
+        String loginCaminho = "UtilizadoresRegistados\\"+login+".txt";
         File verificarLogin = new File(loginCaminho);
         boolean existe = verificarLogin.exists();
         if (existe){
