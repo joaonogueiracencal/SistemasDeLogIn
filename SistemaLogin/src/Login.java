@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -143,9 +147,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoRegistarActionPerformed
 
     private void botaoIniciarSessaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoIniciarSessaoActionPerformed
-        // Validação atraves da recolha e comparação de password e login
-        // 1º - verificar se existe ficheiro "login.txt"
-        // 2º - verificar se a passwrod corresponde à pass que está no ficheiro, se sim, segue para a JFrame Form MenuOpcoes
+        /*
         login = ctxLogin.getText();
         String pass = ctxPassword.getText();
         String loginCaminho = "UtilizadoresRegistados\\"+login+".txt";
@@ -173,6 +175,25 @@ public class Login extends javax.swing.JFrame {
         }else{
             FormRegisto.mensagemErro("Dados inválidos");
         }
+        */
+        Connection liga = LigaBD.ligacao();
+        String sql = "SELECT login AND password FROM utilizador WHERE login ='"+ctxLogin.getText()+"' AND password='"+ctxPassword.getText()+"'";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = liga.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                MenuOpcoes mo = new MenuOpcoes();
+                this.dispose();
+                mo.setVisible(true);
+            }else
+                FormRegisto.mensagemErro("Dados inválidos.");            
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            FormRegisto.mensagemErro("Erro inesperado. Tente novamente.");
+        }
+        
     }//GEN-LAST:event_botaoIniciarSessaoActionPerformed
 
 

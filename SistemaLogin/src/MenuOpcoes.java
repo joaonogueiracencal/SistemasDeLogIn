@@ -130,12 +130,23 @@ public class MenuOpcoes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void MostrarUtilizadoresRegistadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarUtilizadoresRegistadosActionPerformed
+        /*
         File ficheiro = new File("UtilizadoresRegistados\\");
         File [] listaUtilizadores = ficheiro.listFiles();        
         System.out.println(">>> Utilizadores Registados <<<");
         for(int i=0;i<listaUtilizadores.length;i++){
             System.out.println(listaUtilizadores[i].getName().replace(".txt", ""));
         }
+        */
+        TabelaUtilizadores tb = null;
+        try {
+            tb = new TabelaUtilizadores();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuOpcoes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.setVisible(false);
+        tb.setVisible(true); 
+
     }//GEN-LAST:event_MostrarUtilizadoresRegistadosActionPerformed
 
     private void EliminarUtilizadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarUtilizadorActionPerformed
@@ -168,7 +179,7 @@ public class MenuOpcoes extends javax.swing.JFrame {
             PreparedStatement st = conn.prepareStatement(del);
             st.executeUpdate();
             Login lf = new Login();
-            this.setVisible(false);
+            this.dispose();
             lf.setVisible(true); 
         } catch (SQLException ex) {
             Logger.getLogger(MenuOpcoes.class.getName()).log(Level.SEVERE, null, ex);
@@ -202,7 +213,7 @@ public class MenuOpcoes extends javax.swing.JFrame {
         EditarDados ed;
         try {
             ed = new EditarDados();
-            this.setVisible(false);
+            this.dispose();
             ed.setVisible(true); 
         } catch (SQLException ex) {
             Logger.getLogger(MenuOpcoes.class.getName()).log(Level.SEVERE, null, ex);
@@ -212,7 +223,7 @@ public class MenuOpcoes extends javax.swing.JFrame {
 
     private void TerminarSessaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TerminarSessaoActionPerformed
         Login lf = new Login();
-        this.setVisible(false);
+        this.dispose();
         lf.setVisible(true);        
     }//GEN-LAST:event_TerminarSessaoActionPerformed
 

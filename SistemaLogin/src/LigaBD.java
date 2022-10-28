@@ -49,4 +49,34 @@ public static void registaUtilizador(String nome,String email,String morada,int 
         ps.setString(6, password);
         ps.executeUpdate();
     }
+
+    static void remove(int p) throws SQLException {
+        String del = "DELETE FROM utilizador WHERE idUtilizador='"+p+"'";
+        LigaBD.ligacao();
+        Connection conn = LigaBD.ligacao();
+        try {
+            PreparedStatement st = conn.prepareStatement(del);
+            st.executeUpdate();
+            FormRegisto.mensagemErro("Utilizador eliminado.");
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuOpcoes.class.getName()).log(Level.SEVERE, null, ex);
+            FormRegisto.mensagemErro("Erro inesperado.");
+        }
+    }
+
+    static void editar(int p, String nome1, String email2, String morada3, int telefone4, int nif5, String login6, String password7) throws SQLException {
+        
+        String sql = "UPDATE utilizador SET nome=?, email=?, morada=?, telefone=?, nif=?, login=?, password=? WHERE idUtilizador = '"+p+"'";
+        Connection liga = ligacao();
+        System.out.println("Teste");
+        PreparedStatement ps = liga.prepareStatement(sql);
+        ps.setString(1, nome1);
+        ps.setString(2,email2);
+        ps.setString(3,morada3);
+        ps.setInt(4, telefone4);
+        ps.setInt(5, nif5);
+        ps.setString(6, login6);
+        ps.setString(7, password7);
+        ps.executeUpdate();
+    }
 }
