@@ -68,7 +68,6 @@ public static void registaUtilizador(String nome,String email,String morada,int 
         
         String sql = "UPDATE utilizador SET nome=?, email=?, morada=?, telefone=?, nif=?, login=?, password=? WHERE idUtilizador = '"+p+"'";
         Connection liga = ligacao();
-        System.out.println("Teste");
         PreparedStatement ps = liga.prepareStatement(sql);
         ps.setString(1, nome1);
         ps.setString(2,email2);

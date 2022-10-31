@@ -146,7 +146,6 @@ public class TabelaUtilizadores extends javax.swing.JFrame {
                     TabelaUtilizadores tb = new TabelaUtilizadores();
                     this.dispose();
                     tb.setVisible(true); 
-
                 } catch (SQLException ex) {
                     Logger.getLogger(TabelaUtilizadores.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -164,17 +163,14 @@ public class TabelaUtilizadores extends javax.swing.JFrame {
             	int p = (int)tabela.getValueAt(tabela.getSelectedRow(),0);
                 int index = tabela.getSelectedRow();
                 try {
-                    System.out.println(index);
-                    System.out.println(p);
-                    String nome1 = (String) tabela.getModel().getValueAt(index, 1);
-                    String email2 = (String) tabela.getModel().getValueAt(index, 2);
-                    String morada3 = (String) tabela.getModel().getValueAt(index, 3);
-                    int telefone4 = (int) tabela.getModel().getValueAt(index, 4);
-                    int nif5 = (int) tabela.getModel().getValueAt(index, 5);
-                    String login6 = (String) tabela.getModel().getValueAt(index, 6);
-                    String password7 = (String) tabela.getModel().getValueAt(index, 7);
+                    String nome1 = (String) tabela.getValueAt(index, 1);
+                    String email2 = (String) tabela.getValueAt(index, 2);
+                    String morada3 = (String) tabela.getValueAt(index, 3);
+                    int telefone4 = (int) tabela.getValueAt(index, 4);
+                    int nif5 = (int) tabela.getValueAt(index, 5);
+                    String login6 = (String) tabela.getValueAt(index, 6);
+                    String password7 = (String) tabela.getValueAt(index, 7);
                     LigaBD.editar(p,nome1,email2,morada3,telefone4,nif5,login6,password7);
-                    System.out.println(password7);
                     TabelaUtilizadores tb = new TabelaUtilizadores();
                     this.dispose();
                     tb.setVisible(true); 
